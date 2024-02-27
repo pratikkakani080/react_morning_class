@@ -10,6 +10,9 @@ import { useEffect, useState } from 'react';
 import UseRef from './hooks/useRef';
 import UseMemoHook from './hooks/useMemo';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import ApiCall from './components/apicall';
 
 function App(props) {
     const [label, setLabel] = useState('Submit Button')
@@ -1217,23 +1220,25 @@ function App(props) {
         }
     ]
     return (
-        <ButtonContext.Provider value={{ label, setLabel, data, cartItem, setCartItem }}>
-            <div className="App">
-                <BrowserRouter>
-                    <Routes>
-                        <Route path='/' element={<Home label={label} />} />
-                        <Route path='/dashboard' element={<ProtectedRoutes><>Dashboard</></ProtectedRoutes>} />
-                        <Route path='/login' element={<>login</>} />
-                        <Route path='/form' element={<Form />} />
-                        <Route path='/form/:id' element={<Form />} />
-                        <Route path='/table' element={<Table />} />
-                        <Route path='/user' element={<User />} />
-                        <Route path='/use-ref' element={<UseRef />} />
-                        <Route path='/use-memo' element={<UseMemoHook />} />
-                    </Routes>
-                </BrowserRouter>
-            </div>
-        </ButtonContext.Provider>
+        <Provider store={store}>
+            <ButtonContext.Provider value={{ label, setLabel, data, cartItem, setCartItem }}>
+                <div className="App">
+                    <BrowserRouter>
+                        <Routes>
+                            <Route path='/' element={<Home label={label} />} />
+                            <Route path='/dashboard' element={<ApiCall />} />
+                            <Route path='/login' element={<>login</>} />
+                            <Route path='/form' element={<Form />} />
+                            <Route path='/form/:id' element={<Form />} />
+                            <Route path='/table' element={<Table />} />
+                            <Route path='/user' element={<User />} />
+                            <Route path='/use-ref' element={<UseRef />} />
+                            <Route path='/use-memo' element={<UseMemoHook />} />
+                        </Routes>
+                    </BrowserRouter>
+                </div>
+            </ButtonContext.Provider>
+        </Provider>
     );
 }
 

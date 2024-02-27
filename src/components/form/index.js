@@ -82,8 +82,13 @@ export default function Form(props) {
       })
       localStorage.setItem('multiUser', JSON.stringify([...multiData3]))
     } else {
-    localStorage.setItem('multiUser', JSON.stringify([...multiData2, user]))
+      localStorage.setItem('multiUser', JSON.stringify([...multiData2, user]))
     }
+    setUser({
+      email: '',
+      password: '',
+      mobile: ''
+    })
     navigate('/user')
     // setIsSubmitted(true)
     // } else {
